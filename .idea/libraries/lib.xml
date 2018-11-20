@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="lib">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/sdoapi.zip!/" />
+      <root url="jar://$PROJECT_DIR$/lib/classes12.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/jetty-all-9.0.0.rc1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/javax.servlet-3.0.0.v201112011016.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/fastjson-1.2.14.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ideaLibSources/fastjson-1.2.14-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
