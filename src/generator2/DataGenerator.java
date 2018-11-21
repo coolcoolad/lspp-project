@@ -10,6 +10,7 @@ import java.util.Timer;
 
 import client.CooperateEnumerator;
 import drawables.*;
+import poi.Poi;
 import poi.PoiGenerator;
 import router.RouterGenerator;
 import router.RouterGraph;
@@ -136,7 +137,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     protected int waitingPeriod = 0;
 
     private static final String ROUTER_NUM = "400";
-    private static final String POI_NUM = "10000";
+    private static final String POI_NUM = "100";
     private static final String USER_NUM = "1000";
     private static final String MALICIOUS_NUM = "1";
     private static final String PROTECT_RADIUS = "500";
@@ -252,7 +253,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
             aDataGenerator = (DataGenerator) java.beans.Beans.instantiate(iiClsLoader, nameOfApplet);
             frame.add("Center", aDataGenerator);
             Dimension size = aDataGenerator.getSize();
-            size.setSize(size.width + 200, size.height + 50);
+            size.setSize(size.width + 400, size.height + 50); //改窗口大小
             frame.setSize(size);
             // add a windowListener for the windowClosedEvent
             frame.addWindowListener(new WindowAdapter() {
@@ -852,10 +853,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         StatisticTool.reset();
         StatisticTool.getInstance().anonymousNum = Integer.valueOf(anonymousParaField.getText());
         StatisticTool.getInstance().userNum = Integer.valueOf(objBeginText.getText());
-        RouterGraph graph = RouterGenerator.loadFromFile();//路由网络
+
+        RouterGraph graph = RouterGenerator.loadFromFile();//绘制路由网络
         ArrayList<double[]> nodeArr = graph.getNodes();
         ArrayList<ArrayList<Integer>> edges_ = graph.getEdges();
-        for(int a=0; a < edges_.size(); a++)
+        for(int a=0; a < edges_.size(); a++) {
             for(int b: edges_.get(a)){
                 DrawableLine line = new DrawableLine(
                         (int)(nodeArr.get(a)[0]*CooperateEnumerator.getMapWidth()),
@@ -866,6 +868,39 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
                 drawableObjects.addDrawable(line);
                 line.getPresentation().setVisibility(true);
             }
+        }
+
+        generatePoiDrawablePresentation();
+        ArrayList<Poi> poiArr = Utils.loadObjectFromFile(ConstantValues.poiArrObjPath);
+        double width = 0.01;
+        for(Poi poi: poiArr) {
+            double x1 = poi.locX * CooperateEnumerator.getMapWidth();
+            double y1 = poi.locY * CooperateEnumerator.getMapHeight();
+            double x2 = x1 + width * CooperateEnumerator.getMapWidth();
+            double y2 = y1 + width * CooperateEnumerator.getMapHeight();
+            DrawableRectangle rect = new DrawableRectangle((int)x1, (int)y1, (int)x2, (int)y2);
+            rect.setLayer(5);
+            rect.setPresentation(DrawablePresentation.get("poiType"+poi.type));
+            drawableObjects.addDrawable(rect);
+            rect.getPresentation().setVisibility(true);
+        }
+    }
+
+    private void generatePoiDrawablePresentation() {
+        for (int i=0; i < 5; i++) {
+            DrawablePresentation pres = DrawablePresentation.newDrawablePresentation("poiType"+i);
+            pres.setColor(getPoiColor(i));
+        }
+    }
+
+    private Color getPoiColor(int poiType) {
+        switch (poiType) {
+            case 0: return Color.red;
+            case 1: return Color.black;
+            case 2: return Color.yellow;
+            case 3: return Color.blue;
+            default: return Color.green;
+        }
     }
 
     /**

@@ -9,6 +9,7 @@ public class Poi implements Comparable<Poi>, Serializable {
     public String name = "";
     public double locX = 0;
     public double locY = 0;
+    public int type = 0;
 
     public Poi(String name, double x, double y){
         this.name = name;

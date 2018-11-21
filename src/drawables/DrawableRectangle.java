@@ -23,23 +23,24 @@ public class DrawableRectangle extends FilledDrawable {
 public DrawableRectangle () {
 }
 /**
- * Konstruktor für nicht-gefülltes Rechteck.
+ * Konstruktor fï¿½r nicht-gefï¿½lltes Rechteck.
  * @param x1 x-Koordinate eines Eckpunktes
  * @param y1 y-Koordinate eines Eckpunktes
- * @param x2 x-Koordinate des gegenüberliegenden Eckpunktes
- * @param y2 y-Koordinate des gegenüberliegenden Eckpunktes
+ * @param x2 x-Koordinate des gegenï¿½berliegenden Eckpunktes
+ * @param y2 y-Koordinate des gegenï¿½berliegenden Eckpunktes
  */
 public DrawableRectangle (int x1, int y1, int x2, int y2) {
 	mbr = new Rectangle (Math.min(x1,x2), Math.min(y1,y2), Math.abs(x2-x1), Math.abs(y2-y1));
 	pres = DrawablePresentation.get("default");
 }
+
 /**
- * Konstruktor für Rechtecke.
+ * Konstruktor fï¿½r Rechtecke.
  * @param x1 x-Koordinate eines Eckpunktes
  * @param y1 y-Koordinate eines Eckpunktes
- * @param x2 x-Koordinate des gegenüberliegenden Eckpunktes
- * @param y2 y-Koordinate des gegenüberliegenden Eckpunktes
- * @param pFilled gefüllt?
+ * @param x2 x-Koordinate des gegenï¿½berliegenden Eckpunktes
+ * @param y2 y-Koordinate des gegenï¿½berliegenden Eckpunktes
+ * @param pFilled gefï¿½llt?
  * @param presName Name des Darstellungsobjekts
  */
 public DrawableRectangle (int x1, int y1, int x2, int y2, boolean pFilled, String presName) {
@@ -50,15 +51,15 @@ public DrawableRectangle (int x1, int y1, int x2, int y2, boolean pFilled, Strin
 	pres = DrawablePresentation.get(presName);
 }
 /**
- * Konstruktor für Rechtecke.
+ * Konstruktor fï¿½r Rechtecke.
  * @param x1 x-Koordinate eines Eckpunktes
  * @param y1 y-Koordinate eines Eckpunktes
- * @param x2 x-Koordinate des gegenüberliegenden Eckpunktes
- * @param y2 y-Koordinate des gegenüberliegenden Eckpunktes
- * @param pFilled gefüllt?
+ * @param x2 x-Koordinate des gegenï¿½berliegenden Eckpunktes
+ * @param y2 y-Koordinate des gegenï¿½berliegenden Eckpunktes
+ * @param pFilled gefï¿½llt?
  * @param presName Name des Darstellungsobjekts
- * @param pMinScale Mindest-Maßstab zum Zeichnen
- * @param pMaxScale Maximal-Maßstab zum Zeichnen
+ * @param pMinScale Mindest-Maï¿½stab zum Zeichnen
+ * @param pMaxScale Maximal-Maï¿½stab zum Zeichnen
  */
 public DrawableRectangle (int x1, int y1, int x2, int y2, boolean pFilled, String presName, int pMinScale, int pMaxScale) {
 	this (x1,y1,x2,y2, pFilled,presName);
@@ -66,7 +67,7 @@ public DrawableRectangle (int x1, int y1, int x2, int y2, boolean pFilled, Strin
 	maxScale = pMaxScale;
 }
 /**
- * Konstruktor für nicht-gefülltes Rechteck.
+ * Konstruktor fï¿½r nicht-gefï¿½lltes Rechteck.
  * @param rect Rechteck
  */
 public DrawableRectangle (Rectangle rect) {
@@ -76,7 +77,7 @@ public DrawableRectangle (Rectangle rect) {
 /**
  * Zeichnet das Rechteck im Graphic Context g.
  * @param g aktueller Graphic Context
- * @param scale aktueller Maßstab
+ * @param scale aktueller Maï¿½stab
  * @param mode aktueller Darstellungsmodus
  * @param value Darstellungswert
  */

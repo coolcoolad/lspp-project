@@ -9,7 +9,7 @@ MAX_EXTOBJPERTIME = 3
 MAX_EXTOBJBEGIN = 10
 
 ! setting of the generator
-urlnez = K:\\GreenSoftware\\oldenburgGen\\oldenburgGen
+urlnez = D:\\myCode\\java\\lspp-project\\oldenburgGen\\oldenburgGen
 VIZ
 outputFile = oldenburg.dat
 !seed = 123
