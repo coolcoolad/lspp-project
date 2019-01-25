@@ -238,6 +238,8 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     private TextField maliciousUserField = null;
     private Label logLabel = null;
     private List logListView = null;
+    private Label[] poiLabelArr = null;
+    private TextField[] poiFieldArr = null;
 
     /**
      * main entrypoint - starts the part when it is run as an application
@@ -418,6 +420,30 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return logListView;
     }
 
+    private Label[] getPoiLabelArr() {
+        if (poiLabelArr == null) {
+            poiLabelArr = new Label[5];
+            for (int i=0; i < poiLabelArr.length; i++) {
+                poiLabelArr[i] = new Label();
+                poiLabelArr[i].setName("PoiLabel"+i);
+                poiLabelArr[i].setText("poi"+i);
+            }
+        }
+        return poiLabelArr;
+    }
+
+    private TextField[] getPoiFieldArr() {
+        if (poiFieldArr == null) {
+            poiFieldArr = new TextField[5];
+            for (int i=0; i < poiFieldArr.length; i++) {
+                poiFieldArr[i] = new TextField();
+                poiFieldArr[i].setName("PoiField"+i);
+                poiFieldArr[i].setText("10");
+            }
+        }
+        return poiFieldArr;
+    }
+
     /**
      * Evaluates action events.
      *
@@ -505,6 +531,10 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         add(getMaliciousUserField(), getMaliciousUserField().getName());
         add(getLogLabel(), getLogLabel().getName());
         add(getLogListView(), getLogListView().getName());
+        for (Label label: getPoiLabelArr())
+            add(label, label.getName());
+        for (TextField field: getPoiFieldArr())
+            add(field, field.getName());
     }
 
     /**
@@ -597,6 +627,17 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         getLogLabel().setBounds(offsetX, offsetY, 105, 23);
         offsetY += getLogLabel().getHeight() + gapY;
         getLogListView().setBounds(offsetX, offsetY, 155, 155);
+
+        offsetY = viewY;
+        offsetX = viewX + viewWidth + 6 + 180;
+        for(int i=0; i < getPoiLabelArr().length; i++) {
+            Label label = getPoiLabelArr()[i];
+            TextField field = getPoiFieldArr()[i];
+            label.setBounds(offsetX, offsetY, 105, 23);
+            offsetY += label.getHeight() + gapY;
+            field.setBounds(offsetX, offsetY, 105, 23);
+            offsetY += label.getHeight() + gapY;
+        }
     }
 
     class NodeEdgeWrapper {
