@@ -1,3 +1,5 @@
 Manifest-Version: 1.0
+Class-Path: sdoapi.zip classes12.jar jetty-all-9.0.0.rc1.jar javax.ser
+ vlet-3.0.0.v201112011016.jar fastjson-1.2.14.jar
 Main-Class: generator2.DefaultDataGenerator
 

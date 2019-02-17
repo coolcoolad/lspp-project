@@ -318,6 +318,8 @@ protected void checkViewPoint () {
 		getNorthButton().setEnabled(set);
 	getZoomInButton().setEnabled ((scale != maxScale) && set);
 	getZoomOutButton().setEnabled ((scale != minScale) && set);
+
+	getZoomInButton().setEnabled(false);
 }
 /**
  * Computes the URL from the specified name. Relative name are expanded by the code base.

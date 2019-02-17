@@ -21,6 +21,8 @@ import spatial.*;
 import statistics.StatisticTool;
 import util.*;
 
+import javax.swing.*;
+
 /**
  * Abstract controller applet for the computation of network-based spatiotemporal datasets.
  * The abstract methods allow to use user-defined classes determining the bahavior of the generator.
@@ -149,11 +151,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Compute button
      */
-    private Button computeButton = null;
+    private JButton computeButton = null;
     /**
      * Add time button
      */
-    private Button startButton = null;
+    private JButton startButton = null;
     /**
      * Scrollbar
      */
@@ -161,7 +163,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Maximum time label
      */
-    private Label maxTimeLabel = null;
+    private JLabel maxTimeLabel = null;
     /**
      * Maximum time text field
      */
@@ -169,7 +171,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Number of object classes label
      */
-    private Label numObjClassesLabel = null;
+    private JLabel numObjClassesLabel = null;
     /**
      * Number of moving object classes text field
      */
@@ -181,7 +183,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Objects per time label
      */
-    private Label objPerTimeLabel = null;
+    private JLabel objPerTimeLabel = null;
     /**
      * Moving objects per time text field
      */
@@ -189,7 +191,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Objects at beginning label
      */
-    private Label objBeginLabel = null;
+    private JLabel objBeginLabel = null;
     /**
      * External objects per time text field
      */
@@ -201,11 +203,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Delete button
      */
-    private Button deleteButton = null;
+    private JButton deleteButton = null;
     /**
      * Maximum speed divisor label
      */
-    private Label msdLabel = null;
+    private JLabel msdLabel = null;
     /**
      * Maximum speed divisor text field
      */
@@ -217,29 +219,37 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Report probability label
      */
-    private Label reportProbLabel = null;
+    private JLabel reportProbLabel = null;
     /**
      * Report probability text field
      */
     private TextField reportProbText = null;
 
     private Timer timer = null;
-    private Button generateRouterButton = null;
+    private JButton generateRouterButton = null;
     private TextField routerNumField = null;
-    private Button generatePoiButton = null;
+    private JButton generatePoiButton = null;
     private TextField poiNumField = null;
-    private Label anonymousParaLabel = null;
+    private JLabel anonymousParaLabel = null;
     private TextField anonymousParaField = null;
-    private Label protectRadiusLabel = null;
+    private JLabel protectRadiusLabel = null;
     private TextField protectRadiusField = null;
-    private Label requestParaLabel = null;
+    private JLabel requestParaLabel = null;
     private TextField requestParaField = null;
-    private Label maliciousUserLabel = null;
+    private JLabel maliciousUserLabel = null;
     private TextField maliciousUserField = null;
-    private Label logLabel = null;
+    private JLabel logLabel = null;
     private List logListView = null;
-    private Label[] poiLabelArr = null;
+    private JLabel[] poiLabelArr = null;
     private TextField[] poiFieldArr = null;
+    private JLabel KLabel = null;
+    private TextField KField = null;
+    private JLabel LLabel = null;
+    private TextField LField = null;
+    private JLabel CRMaxLabel = null;
+    private TextField CRMaxField = null;
+    private JLabel sigmaLabel = null;
+    private TextField sigmaField = null;
 
     /**
      * main entrypoint - starts the part when it is run as an application
@@ -293,12 +303,12 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         System.out.println("size:"+arr.size());
     }
 
-    private Button getGenerateRouterButton(){
+    private JButton getGenerateRouterButton(){
         if (generateRouterButton == null) {
-            generateRouterButton = new Button();
+            generateRouterButton = new JButton();
             generateRouterButton.setName("GenerateRouterButton");
             generateRouterButton.setFont(new Font("Dialog", 0, 12));
-            generateRouterButton.setLabel("Generate Router");
+            generateRouterButton.setLabel("路由数量");
         }
         return generateRouterButton;
     }
@@ -312,12 +322,12 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return routerNumField;
     }
 
-    private Button getGeneratePoiButton() {
+    private JButton getGeneratePoiButton() {
         if(generatePoiButton == null) {
-            generatePoiButton = new Button();
+            generatePoiButton = new JButton();
             generatePoiButton.setName("GeneratePoiButton");
             generatePoiButton.setFont(new Font("Dialog", 0, 12));
-            generatePoiButton.setLabel("Generate Poi");
+            generatePoiButton.setLabel("每种语义位置数量");
         }
         return generatePoiButton;
     }
@@ -331,11 +341,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return poiNumField;
     }
 
-    private Label getAnonymousParaLabel() {
+    private JLabel getAnonymousParaLabel() {
         if(anonymousParaLabel == null) {
-            anonymousParaLabel = new Label();
+            anonymousParaLabel = new JLabel();
             anonymousParaLabel.setName("AnonymousParaLabel");
-            anonymousParaLabel.setText("anonymous requirement");
+            anonymousParaLabel.setText("匿名组大小");
         }
         return anonymousParaLabel;
     }
@@ -349,11 +359,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return anonymousParaField;
     }
 
-    private Label getProtectRadiusLabel() {
+    private JLabel getProtectRadiusLabel() {
         if(protectRadiusLabel == null) {
-            protectRadiusLabel = new Label();
+            protectRadiusLabel = new JLabel();
             protectRadiusLabel.setName("ProtectRadiusLabel");
-            protectRadiusLabel.setText("protect radius");
+            protectRadiusLabel.setText("保护距离");
         }
         return protectRadiusLabel;
     }
@@ -367,11 +377,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return protectRadiusField;
     }
 
-    private Label getRequestParaLabel() {
+    private JLabel getRequestParaLabel() {
         if(requestParaLabel == null) {
-            requestParaLabel = new Label();
+            requestParaLabel = new JLabel();
             requestParaLabel.setName("RequestParaLabel");
-            requestParaLabel.setText("request para");
+            requestParaLabel.setText("单次请求返回POI数量");
         }
         return requestParaLabel;
     }
@@ -385,11 +395,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return requestParaField;
     }
 
-    private Label getMaliciousUserLabel() {
+    private JLabel getMaliciousUserLabel() {
         if(maliciousUserLabel == null) {
-            maliciousUserLabel = new Label();
+            maliciousUserLabel = new JLabel();
             maliciousUserLabel.setName("MaliciousUserLabel");
-            maliciousUserLabel.setText("malicious user");
+            maliciousUserLabel.setText("不诚信用户数量");
         }
         return maliciousUserLabel;
     }
@@ -403,11 +413,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return maliciousUserField;
     }
 
-    private Label getLogLabel() {
+    private JLabel getLogLabel() {
         if(logLabel == null) {
-            logLabel = new Label();
+            logLabel = new JLabel();
             logLabel.setName("LogLabel");
-            logLabel.setText("log");
+            logLabel.setText("运行日志");
         }
         return logLabel;
     }
@@ -420,11 +430,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return logListView;
     }
 
-    private Label[] getPoiLabelArr() {
+    private JLabel[] getPoiLabelArr() {
         if (poiLabelArr == null) {
-            poiLabelArr = new Label[5];
+            poiLabelArr = new JLabel[5];
             for (int i=0; i < poiLabelArr.length; i++) {
-                poiLabelArr[i] = new Label();
+                poiLabelArr[i] = new JLabel();
                 poiLabelArr[i].setName("PoiLabel"+i);
                 poiLabelArr[i].setText("poi"+i);
             }
@@ -444,6 +454,78 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         return poiFieldArr;
     }
 
+    private JLabel getKLabel() {
+        if(KLabel == null) {
+            KLabel = new JLabel();
+            KLabel.setName("MaliciousUserLabel");
+            KLabel.setText("K");
+        }
+        return KLabel;
+    }
+
+    private TextField getKField() {
+        if(KField == null) {
+            KField = new TextField();
+            KField.setName("MaliciousUserField");
+            KField.setText("1");
+        }
+        return KField;
+    }
+
+    private JLabel getLLabel() {
+        if(LLabel == null) {
+            LLabel = new JLabel();
+            LLabel.setName("MaliciousUserLabel");
+            LLabel.setText("L");
+        }
+        return LLabel;
+    }
+
+    private TextField getLField() {
+        if(LField == null) {
+            LField = new TextField();
+            LField.setName("MaliciousUserField");
+            LField.setText("1");
+        }
+        return LField;
+    }
+
+    private JLabel getCRMaxLabel() {
+        if(CRMaxLabel == null) {
+            CRMaxLabel = new JLabel();
+            CRMaxLabel.setName("MaliciousUserLabel");
+            CRMaxLabel.setText("CRmax");
+        }
+        return CRMaxLabel;
+    }
+
+    private TextField getCRMaxField() {
+        if(CRMaxField == null) {
+            CRMaxField = new TextField();
+            CRMaxField.setName("MaliciousUserField");
+            CRMaxField.setText("1");
+        }
+        return CRMaxField;
+    }
+
+    private JLabel getSigmaLabel() {
+        if(sigmaLabel == null) {
+            sigmaLabel = new JLabel();
+            sigmaLabel.setName("MaliciousUserLabel");
+            sigmaLabel.setText("σ");
+        }
+        return sigmaLabel;
+    }
+
+    private TextField getSigmaField() {
+        if(sigmaField == null) {
+            sigmaField = new TextField();
+            sigmaField.setName("MaliciousUserField");
+            sigmaField.setText("1");
+        }
+        return sigmaField;
+    }
+
     /**
      * Evaluates action events.
      *
@@ -454,7 +536,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         if (e.getSource() == getComputeButton())
             compute();
         if ((e.getSource() == getStartButton()) && (time != null)) {
-            if(getStartButton().getLabel().equals("Start")) {
+            if(getStartButton().getLabel().equals("开始")) {
                 timer = new Timer();
                 time.reset();
                 actTime = time.getCurrTime();
@@ -464,11 +546,11 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
                 StatisticTool.getInstance().userNum = Integer.valueOf(objBeginText.getText());
                 timer.schedule(new TimeFlowTask(this), 100, 500);
                 getDeleteButton().setEnabled(false);
-                getStartButton().setLabel("Stop");
+                getStartButton().setLabel("停止");
             } else {
                 timer.cancel();
                 getDeleteButton().setEnabled(true);
-                getStartButton().setLabel("Start");
+                getStartButton().setLabel("开始");
             }
         }
         if (e.getSource() == getDeleteButton()) {
@@ -531,10 +613,18 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         add(getMaliciousUserField(), getMaliciousUserField().getName());
         add(getLogLabel(), getLogLabel().getName());
         add(getLogListView(), getLogListView().getName());
-        for (Label label: getPoiLabelArr())
+        for (JLabel label: getPoiLabelArr())
             add(label, label.getName());
         for (TextField field: getPoiFieldArr())
             add(field, field.getName());
+        add(getKLabel(), getKLabel().getName());
+        add(getKField(), getKField().getName());
+        add(getLLabel(), getLLabel().getName());
+        add(getLField(), getLField().getName());
+        add(getCRMaxLabel(), getCRMaxLabel().getName());
+        add(getCRMaxField(), getCRMaxField().getName());
+        add(getSigmaLabel(), getSigmaLabel().getName());
+        add(getSigmaField(), getSigmaField().getName());
     }
 
     /**
@@ -598,46 +688,63 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         int gapY = 3;
         int offsetY = viewY;
         int offsetX = viewX + viewWidth + 6;
-        getGenerateRouterButton().setBounds(offsetX,offsetY,105,29);
+        int width = 155;
+        getGenerateRouterButton().setBounds(offsetX,offsetY,width,29);
         offsetY += getGenerateRouterButton().getHeight() + gapY;
-        getRouterNumField().setBounds(offsetX, offsetY, 105,23);
+        getRouterNumField().setBounds(offsetX, offsetY, width,23);
         offsetY += getRouterNumField().getHeight() + gapY;
-        getGeneratePoiButton().setBounds(offsetX, offsetY, 105, 29);
+        getGeneratePoiButton().setBounds(offsetX, offsetY, width, 29);
         offsetY += getGeneratePoiButton().getHeight() + gapY;
-        getPoiNumField().setBounds(offsetX, offsetY, 105, 23);
+        getPoiNumField().setBounds(offsetX, offsetY, width, 23);
 
         offsetY += 100;
-        getAnonymousParaLabel().setBounds(offsetX, offsetY, 155, 23);
+        getAnonymousParaLabel().setBounds(offsetX, offsetY, width, 23);
         offsetY += getAnonymousParaLabel().getHeight() + gapY;
-        getAnonymousParaField().setBounds(offsetX, offsetY, 105, 23);
+        getAnonymousParaField().setBounds(offsetX, offsetY, width, 23);
         offsetY += getAnonymousParaField().getHeight() + gapY;
-        getProtectRadiusLabel().setBounds(offsetX, offsetY, 105, 23);
+        getProtectRadiusLabel().setBounds(offsetX, offsetY, width, 23);
         offsetY += getProtectRadiusLabel().getHeight() + gapY;
-        getProtectRadiusField().setBounds(offsetX, offsetY, 105, 23);
+        getProtectRadiusField().setBounds(offsetX, offsetY, width, 23);
         offsetY += getProtectRadiusField().getHeight() + gapY;
-        getRequestParaLabel().setBounds(offsetX, offsetY, 105, 23);
+        getRequestParaLabel().setBounds(offsetX, offsetY, width, 23);
         offsetY += getRequestParaLabel().getHeight() + gapY;
-        getRequestParaField().setBounds(offsetX, offsetY, 105, 23);
+        getRequestParaField().setBounds(offsetX, offsetY, width, 23);
         offsetY += getRequestParaField().getHeight() + gapY;
-        getMaliciousUserLabel().setBounds(offsetX, offsetY, 105, 23);
+        getMaliciousUserLabel().setBounds(offsetX, offsetY, width, 23);
         offsetY += getMaliciousUserLabel().getHeight() + gapY;
-        getMaliciousUserField().setBounds(offsetX, offsetY, 105, 23);
+        getMaliciousUserField().setBounds(offsetX, offsetY, width, 23);
 
         offsetY += 104;
-        getLogLabel().setBounds(offsetX, offsetY, 105, 23);
+        getLogLabel().setBounds(offsetX, offsetY, width, 23);
         offsetY += getLogLabel().getHeight() + gapY;
-        getLogListView().setBounds(offsetX, offsetY, 155, 155);
+        getLogListView().setBounds(offsetX, offsetY, width, 155);
 
         offsetY = viewY;
-        offsetX = viewX + viewWidth + 6 + 180;
-        for(int i=0; i < getPoiLabelArr().length; i++) {
-            Label label = getPoiLabelArr()[i];
-            TextField field = getPoiFieldArr()[i];
-            label.setBounds(offsetX, offsetY, 105, 23);
-            offsetY += label.getHeight() + gapY;
-            field.setBounds(offsetX, offsetY, 105, 23);
-            offsetY += label.getHeight() + gapY;
-        }
+        offsetX = viewX + viewWidth + 6 + 230;
+//        for(int i=0; i < getPoiLabelArr().length; i++) {
+//            JLabel label = getPoiLabelArr()[i];
+//            TextField field = getPoiFieldArr()[i];
+//            label.setBounds(offsetX, offsetY, 105, 23);
+//            offsetY += label.getHeight() + gapY;
+//            field.setBounds(offsetX, offsetY, 105, 23);
+//            offsetY += label.getHeight() + gapY;
+//        }
+//        getKLabel().setBounds(offsetX, offsetY, 105, 23);
+//        offsetY += getKLabel().getHeight() + gapY;
+//        getKField().setBounds(offsetX, offsetY, 105, 23);
+//        offsetY += getKField().getHeight() + gapY;
+        getLLabel().setBounds(offsetX, offsetY, 105, 23);
+        offsetY += getLLabel().getHeight() + gapY;
+        getLField().setBounds(offsetX, offsetY, 105, 23);
+        offsetY += getLField().getHeight() + gapY;
+        getCRMaxLabel().setBounds(offsetX, offsetY, 105, 23);
+        offsetY += getCRMaxLabel().getHeight() + gapY;
+        getCRMaxField().setBounds(offsetX, offsetY, 105, 23);
+        offsetY += getCRMaxField().getHeight() + gapY;
+        getSigmaLabel().setBounds(offsetX, offsetY, 105, 23);
+        offsetY += getSigmaLabel().getHeight() + gapY;
+        getSigmaField().setBounds(offsetX, offsetY, 105, 23);
+        offsetY += getSigmaField().getHeight() + gapY;
     }
 
     class NodeEdgeWrapper {
@@ -1043,12 +1150,12 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return add time button
      */
-    protected Button getStartButton() {
+    protected JButton getStartButton() {
         if (startButton == null) {
-            startButton = new Button();
+            startButton = new JButton();
             startButton.setName("StartButton");
             startButton.setFont(new Font("Dialog", 0, 12));
-            startButton.setLabel("Start");
+            startButton.setLabel("开始");
             startButton.setEnabled(false);
         }
         ;
@@ -1060,12 +1167,12 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return compute button
      */
-    protected Button getComputeButton() {
+    protected JButton getComputeButton() {
         if (computeButton == null) {
-            computeButton = new Button();
+            computeButton = new JButton();
             computeButton.setName("ComputeButton");
             computeButton.setFont(new Font("Dialog", 0, 12));
-            computeButton.setLabel("Compute");
+            computeButton.setLabel("计算");
             computeButton.setEnabled(false);
         }
         ;
@@ -1077,12 +1184,12 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return delete button
      */
-    protected Button getDeleteButton() {
+    protected JButton getDeleteButton() {
         if (deleteButton == null) {
-            deleteButton = new Button();
+            deleteButton = new JButton();
             deleteButton.setName("DeleteObjectsButton");
             deleteButton.setFont(new Font("Dialog", 0, 12));
-            deleteButton.setLabel("Delete Obj.");
+            deleteButton.setLabel("清除");
             deleteButton.setEnabled(false);
         }
         ;
@@ -1136,12 +1243,13 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return maximum time label
      */
-    protected Label getMaxTimeLabel() {
+    protected JLabel getMaxTimeLabel() {
         if (maxTimeLabel == null) {
-            maxTimeLabel = new Label();
+            maxTimeLabel = new JLabel();
             maxTimeLabel.setName("MaxTimeLabel");
             maxTimeLabel.setFont(new Font("sansserif", 0, 12));
-            maxTimeLabel.setText("maximum time (" + MIN_MAXTIME + "-" + MAX_MAXTIME + "):");
+            //maxTimeLabel.setText("maximum time (" + MIN_MAXTIME + "-" + MAX_MAXTIME + "):");
+            maxTimeLabel.setText("时间: ");
         }
         ;
         return maxTimeLabel;
@@ -1167,9 +1275,9 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return label
      */
-    protected Label getMsdLabel() {
+    protected JLabel getMsdLabel() {
         if (msdLabel == null) {
-            msdLabel = new Label();
+            msdLabel = new JLabel();
             msdLabel.setName("MsdLabel");
             msdLabel.setFont(new Font("sansserif", 0, 12));
             msdLabel.setText("max.speed div. (10=fast,50=middle,250=slow):");
@@ -1213,9 +1321,9 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return number of object classes label
      */
-    protected Label getNumObjClassesLabel() {
+    protected JLabel getNumObjClassesLabel() {
         if (numObjClassesLabel == null) {
-            numObjClassesLabel = new Label();
+            numObjClassesLabel = new JLabel();
             numObjClassesLabel.setName("NumObjClassesLabel");
             numObjClassesLabel.setFont(new Font("sansserif", 0, 12));
             numObjClassesLabel.setText("classes (M:1-" + MAX_OBJCLASSES + "/E:1-" + MAX_EXTOBJCLASSES + "):");
@@ -1244,12 +1352,13 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return label
      */
-    protected Label getObjBeginLabel() {
+    protected JLabel getObjBeginLabel() {
         if (objBeginLabel == null) {
-            objBeginLabel = new Label();
+            objBeginLabel = new JLabel();
             objBeginLabel.setName("ExtObjPerTimeLabel");
             objBeginLabel.setFont(new Font("sansserif", 0, 12));
-            objBeginLabel.setText("obj./begin (M:-" + MAX_OBJBEGIN + " E:-" + MAX_EXTOBJBEGIN + "):");
+            //objBeginLabel.setText("obj./begin (M:-" + MAX_OBJBEGIN + " E:-" + MAX_EXTOBJBEGIN + "):");
+            objBeginLabel.setText("总人数: ");
         }
         ;
         return objBeginLabel;
@@ -1275,9 +1384,9 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return objects per time label
      */
-    protected Label getObjPerTimeLabel() {
+    protected JLabel getObjPerTimeLabel() {
         if (objPerTimeLabel == null) {
-            objPerTimeLabel = new Label();
+            objPerTimeLabel = new JLabel();
             objPerTimeLabel.setName("ObjPerTimeLabel");
             objPerTimeLabel.setFont(new Font("sansserif", 0, 12));
             objPerTimeLabel.setText("obj./time (M:-" + MAX_OBJPERTIME + "/E:-" + MAX_EXTOBJPERTIME + "):");
@@ -1334,9 +1443,9 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
      *
      * @return label
      */
-    protected Label getReportProbLabel() {
+    protected JLabel getReportProbLabel() {
         if (reportProbLabel == null) {
-            reportProbLabel = new Label();
+            reportProbLabel = new JLabel();
             reportProbLabel.setName("ReportProbLabel");
             reportProbLabel.setFont(new Font("sansserif", 0, 12));
             reportProbLabel.setText("report probability (0-1000):");
@@ -1363,7 +1472,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
     /**
      * Creates / Returns the time scrollbar.
      *
-     * @return East-Button
+     * @return East-JButton
      */
     protected Scrollbar getTimeScrollbar() {
         if (timeScrollbar == null) {
@@ -1585,7 +1694,7 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
         if(actTime == time.getMaxTime()){
             timer.cancel();
             getDeleteButton().setEnabled(true);
-            getStartButton().setLabel("Start");
+            getStartButton().setLabel("开始");
             StatisticTool.getInstance().appendToFile();
         }
 //        DrawableObjects objects = reporter.getDrawableObjects();

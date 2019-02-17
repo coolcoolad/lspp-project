@@ -61,7 +61,7 @@ public class StatisticTool {
             boolean flag = file.exists();
             FileWriter fw = new FileWriter(ConstantValues.statisticsCsvPath,true);
             if(!flag)
-                fw.write("timestamp,userNum,requestNum,anonymousNum,avgResponseTime,avgCommunication,successRate\n");
+                fw.write("timestamp,userNum,requestNum,anonymousNum,平均响应时间,平均匿名时间,成功率,平均匿名区域面积，平均区域内语义位置类型数量，平均敏感度\n");
             long time = System.currentTimeMillis();
             double avgResponseTime = calcAvgResponseTime();
             double avgCommunication = calcAvgCommunication();
