@@ -518,10 +518,11 @@ System.err.println("Ich glaube das nachfolgende ist falsch, da sich path nicht ï
  * @param edgeIn DataInputStream fï¿½r Kanten
  * @param objects Container fï¿½r drawable objects
  */
-public void createByNetworkFiles (DataInputStream nodeIn, DataInputStream edgeIn, DrawableObjects objects) {
+public void createByNetworkFiles1 (DataInputStream nodeIn, DataInputStream edgeIn, DrawableObjects objects) {
 	System.out.println("read nodes ...");
 	//DrawableObjectType nodeType = DrawableObjectType.getObjectType("Node");
 	Node actNode = null;
+	// gai
 	HashMap<Node, LinkedList<Node>> graph = new HashMap<>();
 	int offset = 1;
 	while ((actNode = nodes.read(nodeIn)) != null) {
@@ -563,6 +564,43 @@ public void createByNetworkFiles (DataInputStream nodeIn, DataInputStream edgeIn
 		}
 	}
 }
+
+	public void createByNetworkFiles (DataInputStream nodeIn, DataInputStream edgeIn, DrawableObjects objects) {
+		System.out.println("read nodes ...");
+		//DrawableObjectType nodeType = DrawableObjectType.getObjectType("Node");
+		Node actNode = null;
+		while ((actNode = nodes.read(nodeIn)) != null) {
+			if (objects != null) {
+				//DrawableObject obj = objects.newDrawableObject (actNode.getID(),nodeType,null,null);
+				//obj.addDrawable(actNode);
+				objects.addDrawable(actNode);
+			}
+		}
+		System.out.println("read edges ...");
+		//DrawableObjectType edgeType = DrawableObjectType.getObjectType("Edge");
+		Edge actEdge = null;
+		int line = 1;
+		boolean eof = false;
+		while (!eof) {
+			try {
+				actEdge = edges.read(edgeIn,nodes);
+				if (actEdge != null) {
+					if (objects != null) {
+						//DrawableObject obj = objects.newDrawableObject (actEdge.getID(),edgeType,actEdge.getName(),null);
+						//obj.addDrawable(actEdge);
+						objects.addDrawable(actEdge);
+					}
+				}
+				else
+					System.err.println("Read error for edge on line "+line);
+				line++;
+			}
+			catch (IOException ioe) {
+				eof = true;
+			}
+		}
+	}
+
 /**
  * Erzeugt Netzwerk aus Netzwerk-Dateien.
  * @return erfolgreich?

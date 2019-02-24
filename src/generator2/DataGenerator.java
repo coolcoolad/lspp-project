@@ -1032,6 +1032,43 @@ public abstract class DataGenerator extends ShowNetworkMap implements java.awt.e
             drawableObjects.addDrawable(rect);
             rect.getPresentation().setVisibility(true);
         }
+
+        //output path data
+        DrawableObjects objects = reporter.getDrawableObjects();
+        ArrayList<DrawableSymbol> arr = objects.getAllDrawableSymbols();
+        HashMap<Long, ArrayList<DrawableSymbol>> pathMap = new HashMap<>();
+        for(DrawableSymbol p: arr) {
+            if (!pathMap.containsKey(p.getUid()))
+                pathMap.put(p.getUid(), new ArrayList<>());
+            pathMap.get(p.getUid()).add(p);
+//            if (p.getUid() == 0) {
+//                double x1 = p.getX();
+//                double y1 = p.getY();
+//                double x2 = x1 + width * CooperateEnumerator.getMapWidth();
+//                double y2 = y1 + width * CooperateEnumerator.getMapHeight();
+//                DrawableRectangle rect = new DrawableRectangle((int)x1, (int)y1, (int)x2, (int)y2);
+//                rect.setLayer(5);
+//                rect.setPresentation(DrawablePresentation.get("poiType"+p.getUid()));
+//                drawableObjects.addDrawable(rect);
+//                rect.getPresentation().setVisibility(true);
+//                width += 0.001;
+//            }
+        }
+
+        try {
+            FileWriter fw = new FileWriter(ConstantValues.pathDataTxtPath,false);
+            for(Long k: pathMap.keySet()) {
+                fw.write(k + ",");
+                arr = pathMap.get(k);
+                for (DrawableSymbol p: arr)
+                    fw.write("(" + p.getX() + "," + p.getY() + "),");
+                fw.write("\n");
+            }
+            fw.close();
+        } catch (Exception ex){
+            LogView.addLog(ex.getMessage());
+            ex.printStackTrace();
+        }
     }
 
     private void generatePoiDrawablePresentation() {
